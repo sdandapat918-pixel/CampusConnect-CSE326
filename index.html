@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Campus Event Management and Registration Portal for students and organizers." />
+  <title>CampusConnect | Event Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="CampusConnect home"><span class="brand-mark">C</span><span>Campus<span class="brand-light">Connect</span></span></a>
+    <nav class="nav">
+      <a href="#events">Explore events</a>
+      <a href="#my-registrations">My registrations</a>
+      <a href="#organizer">Organizer</a>
+    </nav>
+    <button id="theme-toggle" class="icon-btn" aria-label="Toggle color theme" title="Toggle theme">◐</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="pulse"></span> YOUR CAMPUS, YOUR MOMENT</span>
+        <h1>Make room for<br /><span>something memorable.</span></h1>
+        <p>Discover workshops, competitions, seminars and campus experiences. Find your next event and reserve your spot in seconds.</p>
+        <a class="button primary" href="#events">Explore events <span aria-hidden="true">↗</span></a>
+        <div class="hero-proof"><span class="proof-avatars"><i>✦</i><i>◎</i><i>✳</i></span><span>One place for campus experiences</span></div>
+      </div>
+      <div class="hero-art" aria-label="Abstract illustration of a campus event">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="art-sun"></div>
+        <div class="art-card card-back"><span>UPCOMING</span><b>Ideas in<br/>motion.</b><small>LEARN · BUILD · CONNECT</small></div>
+        <div class="art-card card-front"><span class="mini-label">CAMPUS CALENDAR</span><div class="art-date"><strong>15</strong><span>OCT<br/>2026</span></div><div class="art-line"></div><b>Something<br/>great starts here.</b><small>Find your people.</small></div>
+        <div class="floating-star">✦</div><div class="floating-circle">+</div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Event statistics">
+      <div><span class="stat-number" id="stat-events">0</span><span class="stat-label">Listed events</span></div>
+      <div><span class="stat-number" id="stat-seats">0</span><span class="stat-label">Seats available</span></div>
+      <div><span class="stat-number" id="stat-registrations">0</span><span class="stat-label">Registrations</span></div>
+      <div><span class="stat-number">24/7</span><span class="stat-label">Explore anytime</span></div>
+    </section>
+
+    <section class="section" id="events">
+      <div class="section-heading">
+        <div><span class="eyebrow">THE CAMPUS CALENDAR</span><h2>Find your next <span>big thing.</span></h2><p class="muted">Browse what’s happening and save your seat.</p></div>
+        <span class="section-note">UPDATED AS YOU REGISTER ↘</span>
+      </div>
+      <div class="toolbar">
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search events, venues, keywords..." /></label>
+        <select id="category-filter" aria-label="Filter by category"><option value="All">All categories</option><option>Workshop</option><option>Competition</option><option>Seminar</option><option>Cultural</option><option>Sports</option></select>
+        <select id="date-filter" aria-label="Filter by date"><option value="all">Any date</option><option value="soon">Next 7 days</option><option value="month">Next 30 days</option></select>
+      </div>
+      <div id="event-grid" class="event-grid" aria-live="polite"></div>
+      <div id="empty-events" class="empty-state hidden"><div>◌</div><h3>No events found</h3><p>Try a different search or category.</p></div>
+    </section>
+
+    <section class="section registrations-section" id="my-registrations">
+      <div class="section-heading compact"><div><span class="eyebrow">YOUR PLANS</span><h2>My <span>registrations.</span></h2><p class="muted">Your confirmations are stored in this browser.</p></div></div>
+      <div id="registration-list" class="registration-list"></div>
+    </section>
+
+    <section class="organizer-section" id="organizer">
+      <div class="organizer-intro"><span class="eyebrow">FOR EVENT ORGANIZERS</span><h2>Bring the campus<br/><span>together.</span></h2><p>Create events, set capacity and keep an eye on registrations—all from one dashboard.</p><div class="organizer-points"><span>✓ Capacity-aware registration</span><span>✓ Instant seat count updates</span><span>✓ Printable confirmation slips</span></div></div>
+      <div class="organizer-panel">
+        <div class="panel-head"><div><span class="eyebrow">CONTROL CENTER</span><h3>Organizer dashboard</h3></div><span class="live-tag"><i></i> LIVE</span></div>
+        <div class="dashboard-metrics"><div><span>Total events</span><b id="admin-event-count">0</b></div><div><span>Registrations</span><b id="admin-reg-count">0</b></div><div><span>Seats filled</span><b id="admin-filled-count">0%</b></div></div>
+        <form id="event-form" class="event-form">
+          <h4>Create a new event</h4>
+          <div class="form-grid">
+            <label>Event title<input name="title" required maxlength="70" placeholder="e.g. Design Sprint" /></label>
+            <label>Category<select name="category" required><option>Workshop</option><option>Competition</option><option>Seminar</option><option>Cultural</option><option>Sports</option></select></label>
+            <label>Date<input name="date" type="date" required /></label>
+            <label>Time<input name="time" type="time" required value="10:00" /></label>
+            <label>Venue<input name="venue" required maxlength="80" placeholder="e.g. Block 32, Room 204" /></label>
+            <label>Seat limit<input name="capacity" type="number" min="1" max="1000" required value="50" /></label>
+          </div>
+          <label>Description<textarea name="description" rows="2" required maxlength="240" placeholder="What will participants experience?"></textarea></label>
+          <button class="button primary full" type="submit">＋ Create event</button>
+          <p class="form-hint">Demo note: data is stored in this browser using localStorage.</p>
+        </form>
+        <div class="admin-events"><h4>Manage events</h4><div id="admin-event-list"></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#"><span class="brand-mark">C</span><span>Campus<span class="brand-light">Connect</span></span></a><p>Made for better campus experiences.</p><span> CSE326 · HTML · CSS · JavaScript</span></footer>
+
+  <dialog id="register-dialog" class="modal">
+    <form id="register-form" method="dialog">
+      <button type="button" class="modal-close" id="close-dialog" aria-label="Close">×</button>
+      <span class="eyebrow">SAVE YOUR SEAT</span><h2>Join the <span>event.</span></h2>
+      <p id="modal-event-summary" class="muted"></p>
+      <input type="hidden" name="eventId" />
+      <label>Full name<input name="name" required maxlength="80" placeholder="Enter your name" /></label>
+      <label>Student email<input name="email" type="email" required maxlength="120" placeholder="you@example.com" /></label>
+      <label>Registration number <span class="optional">(optional)</span><input name="regNo" maxlength="40" placeholder="Enter only if required" /></label>
+      <button class="button primary full" type="submit">Confirm registration</button>
+      <p class="form-hint">This demo does not send emails or verify student identity.</p>
+    </form>
+  </dialog>
+
+  <dialog id="confirmation-dialog" class="modal confirmation-modal">
+    <div id="confirmation-content"></div>
+    <button id="print-confirmation" class="button primary full">Print confirmation slip</button>
+    <button id="close-confirmation" class="button secondary full">Done</button>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
